@@ -1,0 +1,6 @@
+export { default as FooterWrapper } from './FooterWrapper'
+// export { default as Header } from './Header'
+// export { default as Footer } from './Footer'
+// export { default as Slider } from './Slider'
+// export { default as ArticleList } from './ArticleList'
+// export { default as ProductList } from './ProductList'

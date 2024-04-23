@@ -1,58 +1,86 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import * as React from "react";
+import { Button, View } from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
+import Login from "@/pages/Login";
+import Home from "@/pages/Home";
 
-import { useColorScheme } from '@/components/useColorScheme';
-
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
-
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return <RootLayoutNav />;
+function NotificationsScreen({ navigation }: any) {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Button onPress={() => navigation.goBack()} title="Go back home" />
+    </View>
+  );
 }
 
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+const Drawer = createDrawerNavigator();
 
+export default function RootLayout() {
+  const [isLogin, setIsLogin] = React.useState<boolean>(false);
+  return <RootLayoutNav isLogin={isLogin} />;
+}
+
+function RootLayoutNav(props: any) {
+  const { isLogin } = props;
+  const Menu = [
+    ...(isLogin === true
+      ? []
+      : [
+          {
+            id: 3,
+            name: "Login",
+            layout: Login,
+          },
+        ]),
+    {
+      id: 1,
+      name: "Home",
+      layout: Home,
+    },
+    {
+      id: 2,
+      name: "Notifications",
+      layout: NotificationsScreen,
+    },
+  ] as any;
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <NavigationContainer independent={true}>
+      <Drawer.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "blue",
+          },
+          headerTintColor: "white",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        {Menu.map((item: any) => {
+          return (
+            <Drawer.Screen
+              key={item.id}
+              name={item.name}
+              component={item.layout}
+              options={({ navigation }: any) => ({
+                headerTitle: item.name,
+                headerTitleStyle: {
+                  marginRight: 10,
+                },
+                headerRight: () => (
+                  <FontAwesome
+                    name="home"
+                    size={24}
+                    color="white"
+                    style={{ marginRight: 10 }}
+                  />
+                ),
+              })}
+            />
+          );
+        })}
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 }

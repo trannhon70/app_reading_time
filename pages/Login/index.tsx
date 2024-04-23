@@ -8,12 +8,13 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { schema } from "@/resolvers/login";
 import { Button, PasswordField, TextField } from "@/components/atoms";
 import LayoutNone from "@/Layouts/LayoutNone";
+import ModalLogin from "@/components/ModalLogin";
 const Styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
     overflow: "hidden",
-    padding: scalePoint(30),
+    padding: scalePoint(20),
     paddingTop: scalePoint(20),
   },
   mainContent: {
@@ -43,7 +44,7 @@ const Styles = StyleSheet.create({
   },
   title: {
     fontWeight: "700",
-    fontSize: scalePoint(30),
+    fontSize: scalePoint(20),
     color: COlORS.black,
     textAlign: "center",
     textTransform: "uppercase",
@@ -59,6 +60,12 @@ const Styles = StyleSheet.create({
   tryFreeContainer: {
     flexDirection: "row",
     justifyContent: "flex-end",
+  },
+  text: {
+    fontWeight: "500",
+    fontSize: scalePoint(14),
+    color: COlORS.black,
+    textAlign: "center",
   },
 });
 
@@ -78,23 +85,38 @@ const Login = () => {
   });
   const onSubmit = async (data: any) => {};
   return (
-    <LayoutNone
-     
-    >
+    <>
       <View style={Styles.container}>
-        <View style={Styles.tryFreeContainer}>
-          <Button
-            style={{ height: 30, width: 100 }}
-            //   onPress={() => navigator.push('TryFreeStep1')}
-            mode="primary"
-          >
-            Try for free
-          </Button>
-        </View>
         <View style={Styles.mainContent}>
-          <Text style={Styles.title}>Login</Text>
           <Image source={logo} style={Styles.logo} />
-          <View style={Styles.formContainer}>
+          <Text style={Styles.title}>Chào mừng tới Reading Time</Text>
+          <Text style={Styles.text}>
+            Họ tiếng Anh qua 1 quyển truyện mỗi ngày.
+          </Text>
+          <Text style={Styles.text}>
+            Cùng khám phá thới giới với Reading Time nào!
+          </Text>
+
+          <View style={Styles.tryFreeContainer}>
+            <Button
+              style={{
+                height: "auto",
+                width: 200,
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                marginTop: 50,
+              }}
+              mode="primary"
+            >
+              Học thử miễn phí
+            </Button>
+          </View>
+          <ModalLogin>
+            
+                Đăng nhập
+             
+          </ModalLogin>
+          {/* <View style={Styles.formContainer}>
             <Controller
               name="email"
               control={methods.control}
@@ -117,10 +139,10 @@ const Login = () => {
                 />
               )}
             />
-          </View>
+          </View> */}
         </View>
       </View>
-    </LayoutNone>
+    </>
   );
 };
 

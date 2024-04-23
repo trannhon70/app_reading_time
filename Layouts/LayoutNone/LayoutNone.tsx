@@ -41,51 +41,8 @@ const LayoutNone = ({
     <SafeAreaView
       style={{ flex: 1, backgroundColor: theme.color.white.default }}
     >
-      <LinearGradient
-        style={[
-          {
-            width: "100%",
-            height: "100%",
-            flex: 1,
-          },
-        ]}
-        colors={["#FFC5DB", "white"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
-        <Animated.View
-          style={[
-            {
-              width: "100%",
-              height: "100%",
-              flex: 1,
-            },
-            { transform: [{ scale: fadeLayout }] },
-          ]}
-        >
-          {/* <Toaster />
-          <Loading /> */}
-          {/* <KeyboardAvoidingView
-            style={Styles.Outer}
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
-            keyboardVerticalOffset={20}
-          >
-            <View style={{ ...Styles.Container }}>
-              <View style={Styles.ContainerBody}>
-                <ScrollView
-                  style={Styles.Main}
-                  contentContainerStyle={Styles.MainChild}
-                >
-                  {children}
-                </ScrollView>
-              </View>
-            </View>
-          </KeyboardAvoidingView>
-          <FooterWrapper>
-            <>{footer}</>
-          </FooterWrapper> */}
-        </Animated.View>
-      </LinearGradient>
+      {children}
+      sadasdsa
     </SafeAreaView>
   );
 };

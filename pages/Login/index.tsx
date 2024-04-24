@@ -72,8 +72,8 @@ type FormType = {
   password: string;
 };
 
-const Login = () => {
-
+const Login = (props: any) => {
+  const { navigation } = props;
   const logo = require("@/assets/images/logo-signature.png");
   const methods = useForm({
     defaultValues: {
@@ -83,6 +83,7 @@ const Login = () => {
     // resolver: yupResolver(schema)
   });
   const onSubmit = async (data: any) => {};
+  
   return (
     <>
       <View style={Styles.container}>
@@ -98,6 +99,7 @@ const Login = () => {
 
           <View style={Styles.tryFreeContainer}>
             <Button
+              onPress={() => navigation.navigate("FreeTryal")}
               style={{
                 height: "auto",
                 minWidth: 200,
@@ -106,36 +108,11 @@ const Login = () => {
                 marginTop: 50,
               }}
               mode="primary"
-              // onPress={() => NavigationContainer.navigate('FreeTryal')}
             >
               Học thử miễn phí
             </Button>
           </View>
           <ModalLogin>Đăng nhập</ModalLogin>
-          {/* <View style={Styles.formContainer}>
-            <Controller
-              name="email"
-              control={methods.control}
-              render={({ field, fieldState }) => (
-                <TextField
-                  {...field}
-                  title="Email"
-                  errors={fieldState.error?.message}
-                />
-              )}
-            />
-            <Controller
-              name="password"
-              control={methods.control}
-              render={({ field, fieldState }) => (
-                <PasswordField
-                  {...field}
-                  title="Password"
-                  errors={fieldState.error?.message}
-                />
-              )}
-            />
-          </View> */}
         </View>
       </View>
     </>

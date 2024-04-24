@@ -1,5 +1,4 @@
 export { default as Button } from './Button'
-export { default as TextField } from './TextField'
 export { default as PasswordField } from './PasswordField'
 // export { default as DatePicker } from './DatePicker'
 // export { default as TimePicker } from './TimePicker'

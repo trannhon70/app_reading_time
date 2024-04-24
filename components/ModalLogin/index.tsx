@@ -10,7 +10,11 @@ import {
   TextInput,
 } from "react-native";
 import { Button } from "../atoms";
-// import validator from 'validator';
+import { COlORS } from "@/constants/Colors";
+import UserApi from "@/api/users";
+import validator from "validator";
+import { Toast } from "toastify-react-native";
+
 export interface IModal {
   children: ReactNode;
 }
@@ -19,22 +23,28 @@ const ModalLogin = (props: IModal) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassWord] = React.useState("");
+  const [errEmail, setErrEmail] = React.useState<boolean>(false);
+  const [errPassowr, setErrPassowr] = React.useState<boolean>(true);
 
   const onClickOpen = () => {
     setModalVisible(true);
   };
 
-  const onPressLogin = () => {
-    // if (validator.isEmail(email)) {
-    //   Alert.alert('Email hợp lệ');
-    // } else {
-    //   Alert.alert('Email không hợp lệ');
-    // }
+  const onPressLogin = async () => {
+    if (validator.isEmail(email) === false) {
+      return setErrEmail(true);
+    }
+    if (password === "") {
+      return setErrPassowr(false);
+    }
+
     const body = {
       email: email,
       password: password,
     };
-    console.log(body, "body");
+    Toast.success("thông báo mới");
+    const result = await UserApi.Login(body);
+    console.log(result, "result");
   };
   return (
     <View>
@@ -43,7 +53,6 @@ const ModalLogin = (props: IModal) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -60,26 +69,40 @@ const ModalLogin = (props: IModal) => {
               <Text style={styles.label}>Email :</Text>
               <TextInput
                 style={styles.input}
-                onChangeText={onChangeEmail}
+                onChangeText={(text) => {
+                  onChangeEmail(text);
+                  setErrEmail(false);
+                }}
                 value={email}
                 placeholder="Nhập email..."
               />
+              {errEmail === true && (
+                <Text style={{ color: "red" }}>Email invalidate!</Text>
+              )}
               <Text style={styles.label}>Passowrd :</Text>
               <TextInput
                 style={styles.input}
-                onChangeText={onChangePassWord}
+                onChangeText={(text) => {
+                  onChangePassWord(text);
+                  setErrPassowr(true);
+                }}
                 value={password}
                 keyboardType="numeric"
                 placeholder="Nhập password..."
                 secureTextEntry
               />
+              {errPassowr === false && (
+                <Text style={{ color: "red" }}>Password invalidate!</Text>
+              )}
             </SafeAreaView>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginTop: 30 }}>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text style={styles.textStyle}>Cancel</Text>
+                <Text style={[styles.textStyle, , { color: "black" }]}>
+                  Cancel
+                </Text>
               </Pressable>
               <Pressable
                 style={[styles.button, styles.buttonOpen]}
@@ -144,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#2196F3",
   },
   buttonClose: {
-    backgroundColor: "#f0582a",
+    backgroundColor: "white",
   },
   textStyle: {
     color: "white",
@@ -167,7 +190,8 @@ const styles = StyleSheet.create({
     height: 40,
     marginVertical: 5,
     borderWidth: 1,
-    borderColor: "blue",
+    borderColor: COlORS.orange,
+    shadowColor: COlORS.orange,
     padding: 10,
     borderRadius: 4,
     fontWeight: "500",

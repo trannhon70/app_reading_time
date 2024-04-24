@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import Login from "@/pages/Login";
 import Home from "@/pages/Home";
+import ToastManager, { Toast } from "toastify-react-native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FreeTryal from "@/pages/FreeTryal";
@@ -15,6 +16,10 @@ function NotificationsScreen({ navigation }: any) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Button onPress={() => navigation.goBack()} title="Go back home" />
+      <Button
+        onPress={() => navigation.navigate("FreeTryal")}
+        title="Go to Home"
+      />
     </View>
   );
 }
@@ -23,7 +28,12 @@ const Drawer = createDrawerNavigator();
 
 export default function RootLayout() {
   const [isLogin, setIsLogin] = React.useState<boolean>(false);
-  return <RootLayoutNav isLogin={isLogin} />;
+  return (
+    <React.Fragment>
+      <RootLayoutNav isLogin={isLogin} />
+      <ToastManager />
+    </React.Fragment>
+  );
 }
 
 function RootLayoutNav(props: any) {
@@ -66,6 +76,9 @@ function RootLayoutNav(props: any) {
             fontWeight: "bold",
           },
         }}
+        // screenOptions={{
+        //   headerShown: false,
+        // }}
       >
         {Menu.map((item: any) => {
           return (

@@ -3,15 +3,16 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+      "@/*": ["./*"]
+    },
+    "jsx": "react-native"
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-, "app/_layout.tsx", "Layouts/LayoutNone/LayoutNone.tsx"  ]
+    "expo-env.d.ts",
+    "app/_layout.tsx",
+    "Layouts/LayoutNone/LayoutNone.tsx"
+  ]
 }

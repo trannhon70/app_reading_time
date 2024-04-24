@@ -1,8 +1,9 @@
 import { COlORS } from "@/constants/Colors";
+import moment from "moment";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import DateTimePicker from "react-native-ui-datepicker";
-import dayjs from "dayjs";
+import { Button } from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -53,7 +54,19 @@ interface ITextFeld {
 
 const DatePickerComponent = (props: ITextFeld) => {
   const { label } = props;
-  const [date, setDate] = useState(dayjs());
+  const dateDefault = new Date();
+  const [dateVal, setDateVal] = useState(dateDefault);
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
+  const hideDatePicker = () => {
+    // setDatePickerVisibility(false)
+  };
+
+  const handleConfirm = (date: any) => {
+    // editable && onChange?.(moment(date).toDate().toISOString())
+    hideDatePicker();
+  };
   return (
     <View style={styles.container}>
       <View style={styles.body}>
@@ -61,13 +74,21 @@ const DatePickerComponent = (props: ITextFeld) => {
           <Text style={styles.label}>{label} :</Text>
         </View>
         <View style={styles.inputcontainer}>
-          <View>
-            {/* <DateTimePicker
-              mode="single"
-              date={date}
-              onChange={(params: any) => setDate(params.date)}
-            /> */}
-          </View>
+          <Button title="Open" onPress={() => setOpen(true)} />
+          <DateTimePickerModal
+            // ref={ref}
+            // isVisible={isDatePickerVisible}
+            mode="time"
+            date={moment(dateVal).toDate()}
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+            minuteInterval={30} // set the step to 10 minutes
+            is24Hour={false}
+            locale="vi_VI"
+            // disabled={!editable}
+            display="spinner" // display a spinner instead of a scroll for minutes
+            // timeZoneOffsetInMinutes={timeZoneOffset} // display AM/PM in the picker
+          />
         </View>
       </View>
     </View>

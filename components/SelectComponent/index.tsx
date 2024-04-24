@@ -45,24 +45,14 @@ const styles = StyleSheet.create({
 
 interface ITextFeld {
   label?: string;
-  value?: string;
-  placeholder?: string;
-  onchange?: any;
+  data?: any;
 }
-const data = [
-  { key: "1", value: "Mobiles", disabled: true },
-  { key: "2", value: "Appliances" },
-  { key: "3", value: "Cameras" },
-  { key: "4", value: "Computers", disabled: true },
-  { key: "5", value: "Vegetables" },
-  { key: "6", value: "Diary Products" },
-  { key: "7", value: "Drinks" },
-];
+
 const SelectComponent = (props: ITextFeld) => {
-  const { label, value, placeholder, onchange } = props;
+  const { label, data } = props;
   const [selected, setSelected] = React.useState("");
   console.log(selected, "selec");
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.body}>
@@ -70,14 +60,12 @@ const SelectComponent = (props: ITextFeld) => {
           <Text style={styles.label}>{label} :</Text>
         </View>
         <View style={styles.inputcontainer}>
-          {/* <Text style={styles.inputIcon}>
-            <Image style={{ minWidth: 30, maxWidth: 30 }} source={icon} />
-          </Text> */}
           <SelectList
-            boxStyles={{ minWidth: 320 }}
+            boxStyles={{ minWidth: 350 }}
             setSelected={(val: any) => setSelected(val)}
             data={data}
             save="value"
+            search={false}
           />
         </View>
       </View>

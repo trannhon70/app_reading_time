@@ -1,8 +1,9 @@
 import { COlORS } from "@/constants/Colors";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { CheckBox } from "react-native-elements";
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -52,9 +53,29 @@ interface ITextFeld {
 }
 
 const CheckBoxComponent = (props: ITextFeld) => {
-  const { label, value, placeholder, onchange } = props;
-  const [selected, setSelected] = React.useState("");
-  console.log(selected, "selec");
+  const { label } = props;
+  const [checkCount, setCheckCount] = useState(0);
+  const [check, setCheck] = useState(false);
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
+  const [check3, setCheck3] = useState(false);
+  const [check4, setCheck4] = useState(false);
+  const [check5, setCheck5] = useState(false);
+  const [check6, setCheck6] = useState(false);
+  console.log(checkCount, "checkCount");
+
+  useEffect(() => {
+    let count = 0;
+    if (check) count++;
+    if (check1) count++;
+    if (check2) count++;
+    if (check3) count++;
+    if (check4) count++;
+    if (check5) count++;
+    if (check6) count++;
+    // Cập nhật giá trị của checkCount
+    setCheckCount(count);
+  }, [check, check1, check2, check3, check4, check5, check6]);
 
   return (
     <View style={styles.container}>
@@ -62,14 +83,49 @@ const CheckBoxComponent = (props: ITextFeld) => {
         <View>
           <Text style={styles.label}>{label} :</Text>
         </View>
-        <View style={styles.inputcontainer}>
-
-           <CheckBox
-                title="T2"
-                // checked={checked}
-                // onPress={() => setChecked(!checked)}
-              />
-             
+        <View style={[styles.inputcontainer, { flexWrap: "wrap" }]}>
+          <CheckBox
+            title="T2"
+            checked={check}
+            onPress={() => setCheck(!check)}
+            disabled={checkCount >= 1 && !check}
+          />
+          <CheckBox
+            title="T3"
+            checked={check1}
+            onPress={() => setCheck1(!check1)}
+            disabled={checkCount >= 1 && !check1}
+          />
+          <CheckBox
+            title="T4"
+            checked={check2}
+            onPress={() => setCheck2(!check2)}
+            disabled={checkCount >= 1 && !check2}
+          />
+          <CheckBox
+            title="T5"
+            checked={check3}
+            onPress={() => setCheck3(!check3)}
+            disabled={checkCount >= 1 && !check3}
+          />
+          <CheckBox
+            title="T6"
+            checked={check4}
+            onPress={() => setCheck4(!check4)}
+            disabled={checkCount >= 1 && !check4}
+          />
+          <CheckBox
+            title="T7"
+            checked={check5}
+            onPress={() => setCheck5(!check5)}
+            disabled={checkCount >= 1 && !check5}
+          />
+          <CheckBox
+            title="CN"
+            checked={check6}
+            onPress={() => setCheck6(!check6)}
+            disabled={checkCount >= 1 && !check6}
+          />
         </View>
       </View>
     </View>

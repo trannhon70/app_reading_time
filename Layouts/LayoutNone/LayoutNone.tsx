@@ -42,7 +42,6 @@ const LayoutNone = ({
       style={{ flex: 1, backgroundColor: theme.color.white.default }}
     >
       {children}
-      sadasdsa
     </SafeAreaView>
   );
 };

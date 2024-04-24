@@ -6,6 +6,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import Login from "@/pages/Login";
 import Home from "@/pages/Home";
 
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import FreeTryal from "@/pages/FreeTryal";
+
+const Stack = createNativeStackNavigator();
+
 function NotificationsScreen({ navigation }: any) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -42,6 +47,11 @@ function RootLayoutNav(props: any) {
       id: 2,
       name: "Notifications",
       layout: NotificationsScreen,
+    },
+    {
+      id: 3,
+      name: "FreeTryal",
+      layout: FreeTryal,
     },
   ] as any;
   return (

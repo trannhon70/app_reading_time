@@ -2,13 +2,11 @@ import { COlORS } from "@/constants/Colors";
 import { scalePoint } from "@/utils/common";
 // import { yupResolver } from '@hookform/resolvers/yup'
 // import { LayoutNone } from 'layouts'
-import React from "react";
-import { Controller, useForm } from "react-hook-form";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { schema } from "@/resolvers/login";
-import { Button, PasswordField, TextField } from "@/components/atoms";
-import LayoutNone from "@/Layouts/LayoutNone";
 import ModalLogin from "@/components/ModalLogin";
+import { Button } from "@/components/atoms";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Image, StyleSheet, Text, View } from "react-native";
 const Styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -75,6 +73,7 @@ type FormType = {
 };
 
 const Login = () => {
+
   const logo = require("@/assets/images/logo-signature.png");
   const methods = useForm({
     defaultValues: {
@@ -101,21 +100,18 @@ const Login = () => {
             <Button
               style={{
                 height: "auto",
-                width: 200,
+                minWidth: 200,
                 paddingVertical: 10,
                 paddingHorizontal: 20,
                 marginTop: 50,
               }}
               mode="primary"
+              // onPress={() => NavigationContainer.navigate('FreeTryal')}
             >
               Học thử miễn phí
             </Button>
           </View>
-          <ModalLogin>
-            
-                Đăng nhập
-             
-          </ModalLogin>
+          <ModalLogin>Đăng nhập</ModalLogin>
           {/* <View style={Styles.formContainer}>
             <Controller
               name="email"

@@ -9,6 +9,9 @@ import ToastManager, { Toast } from "toastify-react-native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FreeTryal from "@/pages/FreeTryal";
+import Messenger from "@/pages/Messenger";
+import SendMessager from "@/pages/SendMessager";
+import { LocalStore } from "@/hooks/useLocalStore";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +30,8 @@ function NotificationsScreen({ navigation }: any) {
 const Drawer = createDrawerNavigator();
 
 export default function RootLayout() {
-  const [isLogin, setIsLogin] = React.useState<boolean>(false);
+  const isLogin = LocalStore.gettokenLocalStore();
+
   return (
     <React.Fragment>
       <RootLayoutNav isLogin={isLogin} />
@@ -39,15 +43,20 @@ export default function RootLayout() {
 function RootLayoutNav(props: any) {
   const { isLogin } = props;
   const Menu = [
-    ...(isLogin === true
-      ? []
-      : [
-          {
-            id: 3,
-            name: "Login",
-            layout: Login,
-          },
-        ]),
+    // ...(isLogin
+    //   ? []
+    //   : [
+    //       {
+    //         id: 3,
+    //         name: "Login",
+    //         layout: Login,
+    //       },
+    //     ]),
+    {
+      id: 0,
+      name: "Login",
+      layout: Login,
+    },
     {
       id: 1,
       name: "Home",
@@ -63,22 +72,32 @@ function RootLayoutNav(props: any) {
       name: "FreeTryal",
       layout: FreeTryal,
     },
+    {
+      id: 4,
+      name: "messenger",
+      layout: Messenger,
+    },
+    {
+      id: 5,
+      name: "SendMessager",
+      layout: SendMessager,
+    },
   ] as any;
   return (
     <NavigationContainer independent={true}>
       <Drawer.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "blue",
-          },
-          headerTintColor: "white",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
         // screenOptions={{
-        //   headerShown: false,
+        //   headerStyle: {
+        //     backgroundColor: "blue",
+        //   },
+        //   headerTintColor: "white",
+        //   headerTitleStyle: {
+        //     fontWeight: "bold",
+        //   },
         // }}
+        screenOptions={{
+          headerShown: false,
+        }}
       >
         {Menu.map((item: any) => {
           return (

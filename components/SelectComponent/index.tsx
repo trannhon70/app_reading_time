@@ -46,13 +46,14 @@ const styles = StyleSheet.create({
 interface ITextFeld {
   label?: string;
   data?: any;
+  onchange?: any;
+  error?: boolean;
+  text?: string;
 }
 
 const SelectComponent = (props: ITextFeld) => {
-  const { label, data } = props;
-  const [selected, setSelected] = React.useState("");
-  console.log(selected, "selec");
-  
+  const { label, data, onchange, error, text } = props;
+
   return (
     <View style={styles.container}>
       <View style={styles.body}>
@@ -61,13 +62,14 @@ const SelectComponent = (props: ITextFeld) => {
         </View>
         <View style={styles.inputcontainer}>
           <SelectList
-            boxStyles={{ minWidth: 350 }}
-            setSelected={(val: any) => setSelected(val)}
+            boxStyles={{ minWidth: "100%" }}
+            setSelected={(val: any) => onchange(val)}
             data={data}
             save="value"
             search={false}
           />
         </View>
+        <View>{error && <Text style={{ color: "red" }}>{text}</Text>}</View>
       </View>
     </View>
   );

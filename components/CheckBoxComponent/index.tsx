@@ -1,4 +1,5 @@
 import { COlORS } from "@/constants/Colors";
+import { IForm } from "@/pages/FreeTryal";
 import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
@@ -50,10 +51,12 @@ interface ITextFeld {
   value?: string;
   placeholder?: string;
   onchange?: any;
+  error?: boolean;
+  text?: string;
 }
 
 const CheckBoxComponent = (props: ITextFeld) => {
-  const { label } = props;
+  const { label, onchange, error, text } = props;
   const [checkCount, setCheckCount] = useState(0);
   const [check, setCheck] = useState(false);
   const [check1, setCheck1] = useState(false);
@@ -62,7 +65,6 @@ const CheckBoxComponent = (props: ITextFeld) => {
   const [check4, setCheck4] = useState(false);
   const [check5, setCheck5] = useState(false);
   const [check6, setCheck6] = useState(false);
-  console.log(checkCount, "checkCount");
 
   useEffect(() => {
     let count = 0;
@@ -75,6 +77,27 @@ const CheckBoxComponent = (props: ITextFeld) => {
     if (check6) count++;
     // Cập nhật giá trị của checkCount
     setCheckCount(count);
+    if (check === true) {
+      onchange(2);
+    }
+    if (check1 === true) {
+      onchange(3);
+    }
+    if (check2 === true) {
+      onchange(4);
+    }
+    if (check3 === true) {
+      onchange(5);
+    }
+    if (check4 === true) {
+      onchange(6);
+    }
+    if (check5 === true) {
+      onchange(7);
+    }
+    if (check6 === true) {
+      onchange(8);
+    }
   }, [check, check1, check2, check3, check4, check5, check6]);
 
   return (
@@ -127,6 +150,7 @@ const CheckBoxComponent = (props: ITextFeld) => {
             disabled={checkCount >= 1 && !check6}
           />
         </View>
+        <View>{error && <Text style={{ color: "red" }}>{text}</Text>}</View>
       </View>
     </View>
   );

@@ -24,13 +24,14 @@ const styles = StyleSheet.create({
   },
   inputIcon: {
     width: "10%",
+   
   },
   inputText: {
     width: "90%",
     fontSize: 16,
     paddingHorizontal: 10,
-    borderColor: COlORS.yellow[100],
-    shadowColor: COlORS.yellow[100],
+    borderColor: COlORS.gray[100],
+    // shadowColor: COlORS.yellow[100],
     borderWidth: 1,
     fontWeight: "600",
     height: 40,
@@ -50,10 +51,25 @@ interface ITextFeld {
   placeholder?: string;
   onchange?: any;
   password?: boolean;
+  error?: boolean;
+  text?: string;
+  errConfirm?: boolean;
+  iconNot?: any;
 }
 
 const TextFeldComponent = (props: ITextFeld) => {
-  const { icon, label, value, placeholder, onchange, password = false } = props;
+  const {
+    icon,
+    label,
+    value,
+    placeholder,
+    onchange,
+    password = false,
+    error,
+    text,
+    errConfirm,
+    iconNot,
+  } = props;
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -71,7 +87,11 @@ const TextFeldComponent = (props: ITextFeld) => {
         </View>
         <View style={styles.inputcontainer}>
           <Text style={styles.inputIcon}>
-            <Image style={{ minWidth: 30, maxWidth: 30 }} source={icon} />
+            {iconNot ? (
+              iconNot
+            ) : (
+              <Image style={{ minWidth: 30, maxWidth: 30 }} source={icon} />
+            )}
           </Text>
           <TextInput
             style={[
@@ -85,6 +105,14 @@ const TextFeldComponent = (props: ITextFeld) => {
             onBlur={handleBlur}
             secureTextEntry={password}
           />
+        </View>
+        <View>{error && <Text style={{ color: "red" }}>{text}</Text>}</View>
+        <View>
+          {errConfirm && (
+            <Text style={{ color: "red" }}>
+              Re-entered password is incorrect
+            </Text>
+          )}
         </View>
       </View>
     </View>

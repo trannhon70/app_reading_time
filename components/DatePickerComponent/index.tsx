@@ -1,9 +1,9 @@
 import { COlORS } from "@/constants/Colors";
-import moment from "moment";
+import dayjs from "dayjs";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePicker from "react-native-ui-datepicker";
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -55,17 +55,17 @@ interface ITextFeld {
 const DatePickerComponent = (props: ITextFeld) => {
   const { label } = props;
   const dateDefault = new Date();
-  const [dateVal, setDateVal] = useState(dateDefault);
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(dayjs());
 
-  const hideDatePicker = () => {
-    // setDatePickerVisibility(false)
-  };
+  console.log(date, "date");
 
-  const handleConfirm = (date: any) => {
-    // editable && onChange?.(moment(date).toDate().toISOString())
-    hideDatePicker();
+  const hanlChangeDate = (e: any) => {
+    console.log(e, "e");
+
+    console.log(dayjs(e), "dayjs(e)");
+
+    // setDate(e);
+    // setDate(dayjs(e));
   };
   return (
     <View style={styles.container}>
@@ -74,21 +74,14 @@ const DatePickerComponent = (props: ITextFeld) => {
           <Text style={styles.label}>{label} :</Text>
         </View>
         <View style={styles.inputcontainer}>
-          <Button title="Open" onPress={() => setOpen(true)} />
-          <DateTimePickerModal
-            // ref={ref}
-            // isVisible={isDatePickerVisible}
-            mode="time"
-            date={moment(dateVal).toDate()}
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
-            minuteInterval={30} // set the step to 10 minutes
-            is24Hour={false}
-            locale="vi_VI"
-            // disabled={!editable}
-            display="spinner" // display a spinner instead of a scroll for minutes
-            // timeZoneOffsetInMinutes={timeZoneOffset} // display AM/PM in the picker
-          />
+          <View style={{ width: "100%" }}>
+            <DateTimePicker
+              mode="single"
+              date={date}
+              onChange={(e) => hanlChangeDate(e)}
+              timePicker
+            />
+          </View>
         </View>
       </View>
     </View>

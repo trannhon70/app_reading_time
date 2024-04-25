@@ -5,6 +5,7 @@ import { SCREEN_WIDTH, scalePoint } from "@/utils/common";
 // import { Button } from '~components/atoms'
 // import { ArticleList, ProductList, Slider } from '~components/organisms'
 import { COlORS } from "@/constants/Colors";
+import Header from "@/Layouts/Header";
 // import LayoutWithHeading from "@/layouts/LayoutWithHeading";
 // import { Plus } from '@/images/index'
 // import { AppScreenNavigationProp } from '~routes/index'
@@ -21,7 +22,9 @@ const Styles = StyleSheet.create({
   centerContainer: {
     alignItems: "center",
   },
-  container: {},
+  container: {
+    backgroundColor: "rgb(233 219 235)",
+  },
   sliderImageItem: {
     height: "100%",
     width: "100%",
@@ -114,60 +117,64 @@ const Styles = StyleSheet.create({
     height: scalePoint(30),
   },
 });
-const Home = () => {
-    return  <>
-    <View style={Styles.container}>
-      <View style={Styles.centerContainer}>
-        <View style={Styles.sliderContainer}>
-          {/* <Slider data={dataSliders} /> */}
+const Home = (props: any) => {
+  const { navigation } = props;
+  return (
+    <>
+      <View style={Styles.container}>
+        <Header navigation={navigation} />
+        <View style={Styles.centerContainer}>
+          <View style={Styles.sliderContainer}>
+            {/* <Slider data={dataSliders} /> */}
+          </View>
         </View>
-      </View>
 
-      {/* ArticleList */}
-      <Text style={Styles.heading}>
-        Why is reading English books important!
-      </Text>
-      {/* <ArticleList /> */}
-      {/* ArticleList end */}
-
-      {/* ArticleList isVideo */}
-      <Text style={Styles.heading}>Reading time review from Korean</Text>
-      {/* <ArticleList isVideo /> */}
-      {/* ArticleList isVideo end */}
-
-      <View style={Styles.textBreakContainer}>
-        <Text style={Styles.heading}>Reading time review from Korean</Text>
-        <Text style={Styles.textDesc}>
-          25 minutes every day, with the guidance of the foreign teacher, you
-          will develop the habit of reading English and naturally improve your
-          English language skills
+        {/* ArticleList */}
+        <Text style={Styles.heading}>
+          Why is reading English books important!
         </Text>
-      </View>
+        {/* <ArticleList /> */}
+        {/* ArticleList end */}
 
-      {/* ProductList */}
-      <Text style={Styles.heading}>Reading time products</Text>
-      {/* <ProductList /> */}
-      {/* ProductList end */}
-
-      <View style={Styles.guideContainer}>
+        {/* ArticleList isVideo */}
         <Text style={Styles.heading}>Reading time review from Korean</Text>
-        <View style={Styles.stepConatiner}>
-          {/* <Image source={slider} style={Styles.stepImage} /> */}
-          <Text style={Styles.textStep}> 1:1 with foreign teacher</Text>
+        {/* <ArticleList isVideo /> */}
+        {/* ArticleList isVideo end */}
+
+        <View style={Styles.textBreakContainer}>
+          <Text style={Styles.heading}>Reading time review from Korean</Text>
+          <Text style={Styles.textDesc}>
+            25 minutes every day, with the guidance of the foreign teacher, you
+            will develop the habit of reading English and naturally improve your
+            English language skills
+          </Text>
         </View>
-        <View style={Styles.plus}>{/* <Plus /> */}</View>
-        <View style={Styles.stepConatiner}>
-          {/* <Image source={slider} style={Styles.stepImage} /> */}
-          <Text style={Styles.textStep}> 25 minutes</Text>
-        </View>
-        <View style={Styles.plus}>{/* <Plus /> */}</View>
-        <View style={Styles.stepConatiner}>
-          {/* <Image source={slider} style={Styles.stepImage} /> */}
-          <Text style={Styles.textStep}> 1:1 with foreign teacher</Text>
+
+        {/* ProductList */}
+        <Text style={Styles.heading}>Reading time products</Text>
+        {/* <ProductList /> */}
+        {/* ProductList end */}
+
+        <View style={Styles.guideContainer}>
+          <Text style={Styles.heading}>Reading time review from Korean</Text>
+          <View style={Styles.stepConatiner}>
+            {/* <Image source={slider} style={Styles.stepImage} /> */}
+            <Text style={Styles.textStep}> 1:1 with foreign teacher</Text>
+          </View>
+          <View style={Styles.plus}>{/* <Plus /> */}</View>
+          <View style={Styles.stepConatiner}>
+            {/* <Image source={slider} style={Styles.stepImage} /> */}
+            <Text style={Styles.textStep}> 25 minutes</Text>
+          </View>
+          <View style={Styles.plus}>{/* <Plus /> */}</View>
+          <View style={Styles.stepConatiner}>
+            {/* <Image source={slider} style={Styles.stepImage} /> */}
+            <Text style={Styles.textStep}> 1:1 with foreign teacher</Text>
+          </View>
         </View>
       </View>
-    </View>
-  </>
-}
+    </>
+  );
+};
 
-export default Home
+export default Home;

@@ -1,5 +1,5 @@
 import TextFeldComponent from "@/components/TextFeldComponent";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -15,7 +15,15 @@ import CheckBoxComponent from "@/components/CheckBoxComponent";
 import { TimeDesired } from "@/utils";
 import { GrLinkPrevious } from "react-icons/gr";
 import CountryApi from "@/api/country";
+import { IoMailSharp } from "react-icons/io5";
+import { FaLock } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa6";
+import { BsCalendar2DateFill } from "react-icons/bs";
 import validator from "validator";
+import FreeTryalApi from "@/api/freeTryal";
+import { Toast } from "toastify-react-native";
+import DatePickerComponent from "@/components/DatePickerComponent";
 // import DatePickerComponent from "@/components/DatePickerComponent";
 const styles = StyleSheet.create({
   tryFreeContainer: {
@@ -34,7 +42,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface IForm {
+export interface IForm {
   email: string;
   password: string;
   confirmPassword: string;
@@ -48,12 +56,42 @@ interface IForm {
   timeTableId: string;
 }
 
+export interface IFormErr {
+  email: boolean;
+  password: boolean;
+  confirmPassword: boolean;
+  userName: boolean;
+  countryName: boolean;
+  startDate: boolean;
+  phone: boolean;
+  age: boolean;
+  bookType: boolean;
+  hopeDay: boolean;
+  timeTableId: boolean;
+}
+
 const FreeTryal = (props: any) => {
   const { navigation } = props;
   const icon = require("@/assets/images/book.svg");
   const logo = require("@/assets/images/header-logo.png");
-  const [checked, setChecked] = useState(false);
   const [country, setCountry] = useState<any>([]);
+  const [check, setCheck] = useState<boolean>(false);
+  const [check1, setCheck1] = useState<boolean>(false);
+  const [checkCount, setCheckCount] = useState<number>(0);
+  const [errConfirm, setErrConFirm] = useState<boolean>(false);
+  const [formErr, setFormErr] = useState<IFormErr>({
+    email: false,
+    password: false,
+    confirmPassword: false,
+    userName: false,
+    countryName: false,
+    startDate: false,
+    phone: false,
+    age: false,
+    bookType: false,
+    hopeDay: false,
+    timeTableId: false,
+  });
   const [form, setForm] = useState<IForm>({
     email: "",
     password: "",
@@ -67,8 +105,6 @@ const FreeTryal = (props: any) => {
     hopeDay: "",
     timeTableId: "",
   });
-
-  console.log(form, "form");
 
   useEffect(() => {
     const fecth = async () => {
@@ -89,12 +125,20 @@ const FreeTryal = (props: any) => {
       ...form,
       email: e.target.value,
     });
+    setFormErr({
+      ...formErr,
+      email: false,
+    });
   };
 
   const onchangePassword = (e: any) => {
     setForm({
       ...form,
       password: e.target.value,
+    });
+    setFormErr({
+      ...formErr,
+      password: false,
     });
   };
 
@@ -103,20 +147,156 @@ const FreeTryal = (props: any) => {
       ...form,
       confirmPassword: e.target.value,
     });
+    setFormErr({
+      ...formErr,
+      confirmPassword: false,
+    });
+    setErrConFirm(false);
   };
+
+  const onchangeNickName = (e: any) => {
+    setForm({
+      ...form,
+      userName: e.target.value,
+    });
+    setFormErr({
+      ...formErr,
+      userName: false,
+    });
+  };
+
   const onchangeAge = (e: any) => {
     setForm({
       ...form,
       age: e.target.value,
     });
+    setFormErr({
+      ...formErr,
+      age: false,
+    });
   };
-  const onchangeHope = (e: any) => {
-    console.log(e.target.value, "e");
+  const onchangePhone = (e: any) => {
+    setForm({
+      ...form,
+      phone: e.target.value,
+    });
+    setFormErr({
+      ...formErr,
+      phone: false,
+    });
+  };
+  useEffect(() => {
+    let count = 0;
+    if (check) count++;
+    if (check1) count++;
+    setCheckCount(count);
+    if (check === true) {
+      setForm({
+        ...form,
+        bookType: "RAZKID",
+      });
+    }
+    if (check1 === true) {
+      setForm({
+        ...form,
+        bookType: "EPIC",
+      });
+    }
+    // setCheck(true);
+  }, [check, check1]);
 
-    // setForm({
-    //   ...form,
-    //   age: e.target.value,
-    // });
+  const onchangeStartDate = (e: any) => {
+    setForm({
+      ...form,
+      startDate: e.target.value,
+    });
+    setFormErr({
+      ...formErr,
+      startDate: false,
+    });
+  };
+
+  const onchangeHopeDay = (e: any) => {
+    setForm({
+      ...form,
+      hopeDay: e,
+    });
+    setFormErr({
+      ...formErr,
+      hopeDay: false,
+    });
+  };
+
+  const onchangeDesiredTime = (e: any) => {
+    const result = TimeDesired.filter((item) => item.value === e);
+    setForm({
+      ...form,
+      timeTableId: result?.[0].key,
+    });
+    setFormErr({
+      ...formErr,
+      timeTableId: false,
+    });
+  };
+
+  const onchangeCountry = (e: any) => {
+    setForm({
+      ...form,
+      countryName: e,
+    });
+    setFormErr({
+      ...formErr,
+      countryName: false,
+    });
+  };
+
+  useEffect(() => {
+    if (form.password !== form.confirmPassword) {
+      setErrConFirm(true);
+    }
+  }, [form.password, form.confirmPassword]);
+
+  const onPressApply = async () => {
+    let newFormErr = { ...formErr };
+
+    if (form.email === "") newFormErr = { ...newFormErr, email: true };
+    if (form.password === "") newFormErr = { ...newFormErr, password: true };
+    if (form.confirmPassword === "")
+      newFormErr = { ...newFormErr, confirmPassword: true };
+    if (form.userName === "") newFormErr = { ...newFormErr, userName: true };
+    if (form.age === "") newFormErr = { ...newFormErr, age: true };
+    if (form.phone === "") newFormErr = { ...newFormErr, phone: true };
+    if (form.startDate === "") newFormErr = { ...newFormErr, startDate: true };
+    if (form.hopeDay === "") newFormErr = { ...newFormErr, hopeDay: true };
+    if (form.timeTableId === "")
+      newFormErr = { ...newFormErr, timeTableId: true };
+    if (form.countryName === "")
+      newFormErr = { ...newFormErr, countryName: true };
+
+    setFormErr(newFormErr);
+    console.log(form, "form");
+    console.log(formErr, "formErr");
+    if (
+      formErr.age === false &&
+      formErr.bookType === false &&
+      formErr.confirmPassword === false &&
+      formErr.countryName === false &&
+      formErr.email === false &&
+      formErr.hopeDay === false &&
+      formErr.password === false &&
+      formErr.phone === false &&
+      formErr.startDate === false &&
+      formErr.timeTableId === false &&
+      formErr.userName === false
+    ) {
+      FreeTryalApi.createFreeTryal(form)
+        .then((res: any) => {
+          Toast.success(`${res.message}`, "");
+        })
+        .catch((err: any) => {
+          Toast.error(`${err?.response?.data?.message}`, "");
+        });
+    }
   };
 
   return (
@@ -153,32 +333,71 @@ const FreeTryal = (props: any) => {
             </View>
             <TextFeldComponent
               icon={icon}
+              iconNot={
+                <IoMailSharp
+                  size={30}
+                  color="#5a5a61"
+                  style={{ marginTop: 5 }}
+                />
+              }
               label="Email"
               // placeholder="Nhập email"
               onchange={onchangeEmail}
+              error={formErr.email}
+              text="Email is not empty!"
             />
             <TextFeldComponent
-              icon={icon}
               label="Password"
               placeholder=""
               password={true}
               onchange={onchangePassword}
+              error={formErr.password}
+              text="Password is not empty!"
+              iconNot={
+                <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
+              }
             />
             <TextFeldComponent
-              icon={icon}
               label="Confirm Password"
               placeholder=""
               password={true}
               onchange={onchangeComfirmPassword}
+              error={formErr.confirmPassword}
+              text="Confirm password is not empty!"
+              errConfirm={errConfirm}
+              iconNot={
+                <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
+              }
             />
-            <TextFeldComponent icon={icon} label="Nickname" placeholder="" />
+            <TextFeldComponent
+              label="Nickname"
+              placeholder=""
+              onchange={onchangeNickName}
+              error={formErr.userName}
+              text="Nickname is not empty!"
+              iconNot={
+                <FaUser size={30} color="#5a5a61" style={{ marginTop: 5 }} />
+              }
+            />
             <TextFeldComponent
               icon={icon}
               label="Age or grade"
               placeholder=""
               onchange={onchangeAge}
+              error={formErr.age}
+              text="Age is not empty!"
             />
-            <TextFeldComponent icon={icon} label="Phone Numbe" placeholder="" />
+            <TextFeldComponent
+              icon={icon}
+              label="Phone Numbe"
+              placeholder=""
+              onchange={onchangePhone}
+              error={formErr.phone}
+              text="Phone is not empty!"
+              iconNot={
+                <FaPhone size={30} color="#5a5a61" style={{ marginTop: 5 }} />
+              }
+            />
 
             <View>
               <Text style={styles.label}>Hope Class :</Text>
@@ -186,26 +405,54 @@ const FreeTryal = (props: any) => {
             <View style={{ flexDirection: "row", marginTop: 10 }}>
               <CheckBox
                 title="Raz-kids"
-                checked={checked}
-                // onPress={() => setChecked(!checked)}
-                onPress={(e) => onchangeHope(e)}
+                checked={check}
+                onPress={() => setCheck(!check)}
+                disabled={checkCount >= 1 && !check}
               />
               <CheckBox
                 title="Epic"
-                checked={!checked}
-                onPress={() => setChecked(!checked)}
+                checked={check1}
+                onPress={() => setCheck1(!check1)}
+                disabled={checkCount >= 1 && !check1}
               />
             </View>
-            {/* <DatePickerComponent label="Start Date" /> */}
+            <DatePickerComponent label="Start Date" />
             <TextFeldComponent
               icon={icon}
               label="Start Date"
               placeholder="dd/mm/yyy"
+              onchange={onchangeStartDate}
+              error={formErr.startDate}
+              text="Start date is not empty!"
+              iconNot={
+                <BsCalendar2DateFill
+                  size={30}
+                  color="#5a5a61"
+                  style={{ marginTop: 5 }}
+                />
+              }
             />
-            <CheckBoxComponent label="Hope day " />
+            <CheckBoxComponent
+              label="Hope day "
+              onchange={onchangeHopeDay}
+              error={formErr.hopeDay}
+              text="hopeDay is not empty!"
+            />
 
-            <SelectComponent label="Desired time" data={TimeDesired} />
-            <SelectComponent label="Country" data={country} />
+            <SelectComponent
+              label="Desired time"
+              data={TimeDesired}
+              onchange={onchangeDesiredTime}
+              error={formErr.timeTableId}
+              text="Desired time is not empty!"
+            />
+            <SelectComponent
+              label="Country"
+              data={country}
+              onchange={onchangeCountry}
+              error={formErr.countryName}
+              text="Country is not empty!"
+            />
 
             <View style={styles.tryFreeContainer}>
               <Button
@@ -217,6 +464,7 @@ const FreeTryal = (props: any) => {
                   marginTop: 20,
                 }}
                 mode="primary"
+                onPress={onPressApply}
               >
                 Apply
               </Button>

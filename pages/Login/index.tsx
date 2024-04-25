@@ -14,6 +14,7 @@ const Styles = StyleSheet.create({
     overflow: "hidden",
     padding: scalePoint(20),
     paddingTop: scalePoint(20),
+    backgroundColor: "#d3a1e7d8",
   },
   mainContent: {
     flexGrow: 1,
@@ -67,23 +68,10 @@ const Styles = StyleSheet.create({
   },
 });
 
-type FormType = {
-  email: string;
-  password: string;
-};
-
 const Login = (props: any) => {
   const { navigation } = props;
   const logo = require("@/assets/images/logo-signature.png");
-  const methods = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-    // resolver: yupResolver(schema)
-  });
-  const onSubmit = async (data: any) => {};
-  
+
   return (
     <>
       <View style={Styles.container}>
@@ -112,7 +100,7 @@ const Login = (props: any) => {
               Học thử miễn phí
             </Button>
           </View>
-          <ModalLogin>Đăng nhập</ModalLogin>
+          <ModalLogin navigation ={navigation}>Đăng nhập</ModalLogin>
         </View>
       </View>
     </>

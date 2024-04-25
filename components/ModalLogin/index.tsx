@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { ReactNode, useState } from "react";
 import {
   Alert,
@@ -17,9 +18,10 @@ import { Toast } from "toastify-react-native";
 
 export interface IModal {
   children: ReactNode;
+  navigation?: any;
 }
 const ModalLogin = (props: IModal) => {
-  const { children } = props;
+  const { children, navigation } = props;
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassWord] = React.useState("");
@@ -42,9 +44,23 @@ const ModalLogin = (props: IModal) => {
       email: email,
       password: password,
     };
-    Toast.success("thông báo mới");
-    const result = await UserApi.Login(body);
-    console.log(result, "result");
+    UserApi.Login(body)
+      .then((res) => {
+        console.log(res, "res");
+        Toast.success(`${res?.message}`, "");
+        localStorage.setItem("infoUser", JSON.stringify(res.data.infoUser));
+        localStorage.setItem(
+          "refreshToken",
+          JSON.stringify(res.data.refreshToken)
+        );
+        localStorage.setItem("token", JSON.stringify(res.data.token));
+        setModalVisible(false);
+        navigation.navigate("Home");
+      })
+      .catch((err) => {
+        console.log(err, "err");
+        Toast.error(`${err?.response?.data?.message}`, "");
+      }).finally;
   };
   return (
     <View>
@@ -66,6 +82,7 @@ const ModalLogin = (props: IModal) => {
                   Login
                 </Text>
               </View>
+
               <Text style={styles.label}>Email :</Text>
               <TextInput
                 style={styles.input}
@@ -190,8 +207,8 @@ const styles = StyleSheet.create({
     height: 40,
     marginVertical: 5,
     borderWidth: 1,
-    borderColor: COlORS.orange,
-    shadowColor: COlORS.orange,
+    borderColor: COlORS.gray[100],
+    shadowColor: COlORS.gray[100],
     padding: 10,
     borderRadius: 4,
     fontWeight: "500",

@@ -13,19 +13,13 @@ import { Button } from "@/components/atoms";
 import SelectComponent from "@/components/SelectComponent";
 import CheckBoxComponent from "@/components/CheckBoxComponent";
 import { TimeDesired } from "@/utils";
-// import { GrLinkPrevious } from "react-icons/gr";
 import CountryApi from "@/api/country";
-// import { IoMailSharp } from "react-icons/io5";
-// import { FaLock } from "react-icons/fa6";
-// import { FaUser } from "react-icons/fa";
-// import { FaPhone } from "react-icons/fa6";
-// import { BsCalendar2DateFill } from "react-icons/bs";
 import validator from "validator";
 import FreeTryalApi from "@/api/freeTryal";
 import { Toast } from "toastify-react-native";
 import DatePickerComponent from "@/components/DatePickerComponent";
 import dayjs from "dayjs";
-// import DatePickerComponent from "@/components/DatePickerComponent";
+import { Ionicons } from "@expo/vector-icons";
 const styles = StyleSheet.create({
   tryFreeContainer: {
     flex: 1,
@@ -335,7 +329,7 @@ const FreeTryal = (props: any) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1, padding: 5 }}>
         <ScrollView>
-          <View style={{ paddingHorizontal: "5%" }}>
+          <View style={{ paddingHorizontal: "3%" }}>
             <View
               style={{
                 flexDirection: "row",
@@ -344,14 +338,15 @@ const FreeTryal = (props: any) => {
                 marginBottom: 10,
               }}
             >
-              <View style={{ width: "5%" }}>
+              <View style={{ width: "10%" }}>
                 <Text onPress={() => navigation.goBack()}>
+                <Ionicons name="arrow-back" size={32} color="grey" />
                   {/* <GrLinkPrevious size={20} color="#3d3535" /> */}
                 </Text>
               </View>
               <View
                 style={{
-                  width: "95%",
+                  width: "90%",
                   flex: 1,
                   justifyContent: "center",
                   alignItems: "center",
@@ -365,13 +360,9 @@ const FreeTryal = (props: any) => {
             </View>
             <TextFeldComponent
               icon={icon}
-              // iconNot={
-              //   <IoMailSharp
-              //     size={30}
-              //     color="#5a5a61"
-              //     style={{ marginTop: 5 }}
-              //   />
-              // }
+              iconNot={
+                <Ionicons name="mail" size={25} color="grey" />
+              }
               label="Email"
               // placeholder="Nhập email"
               onchange={onchangeEmail}
@@ -386,9 +377,9 @@ const FreeTryal = (props: any) => {
               onchange={onchangePassword}
               error={formErr.password}
               text="Password is not empty!"
-              // iconNot={
-              //   <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
-              // }
+              iconNot={
+                <Ionicons name="lock-closed" size={25} color="grey" />
+              }
               value={form.password}
             />
             <TextFeldComponent
@@ -399,9 +390,9 @@ const FreeTryal = (props: any) => {
               error={formErr.confirmPassword}
               text="Confirm password is not empty!"
               errConfirm={errConfirm}
-              // iconNot={
-              //   <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
-              // }
+              iconNot={
+                <Ionicons name="lock-closed" size={25} color="grey" />
+              }
               value={form.confirmPassword}
             />
             <TextFeldComponent
@@ -410,9 +401,9 @@ const FreeTryal = (props: any) => {
               onchange={onchangeNickName}
               error={formErr.userName}
               text="Nickname is not empty!"
-              // iconNot={
-              //   <FaUser size={30} color="#5a5a61" style={{ marginTop: 5 }} />
-              // }
+              iconNot={
+                <Ionicons name="person" size={25} color="grey" />
+              }
               value={form.userName}
             />
             <TextFeldComponent
@@ -423,6 +414,9 @@ const FreeTryal = (props: any) => {
               error={formErr.age}
               text="Age is not empty!"
               value={form.age}
+              iconNot={
+                <Ionicons name="add" size={25} color="grey" />
+              }
             />
             <TextFeldComponent
               icon={icon}
@@ -431,9 +425,9 @@ const FreeTryal = (props: any) => {
               onchange={onchangePhone}
               error={formErr.phone}
               text="Phone is not empty!"
-              // iconNot={
-              //   <FaPhone size={30} color="#5a5a61" style={{ marginTop: 5 }} />
-              // }
+              iconNot={
+                <Ionicons name="phone-portrait" size={25} color="grey" />
+              }
               value={form.phone}
             />
 

@@ -6,6 +6,7 @@ import { StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect } from "react";
+import { Ionicons } from "@expo/vector-icons";
 
 const SendMessager = (props: any) => {
   const { fromTo, sendTo, nameFromto } = useSelector(
@@ -35,7 +36,7 @@ const SendMessager = (props: any) => {
   const { navigation } = props;
   return (
     <View style={styles.container}>
-      <View style={{ paddingHorizontal: "2%", marginTop: 10 }}>
+      <View style={{ paddingHorizontal: "3%", marginTop: 10, paddingVertical:10 }}>
         <View
           style={{
             flexDirection: "row",
@@ -44,18 +45,15 @@ const SendMessager = (props: any) => {
             marginBottom: 10,
           }}
         >
-          <View style={{ width: "5%" }}>
+          <View style={{ width: "10%" }}>
             <Text onPress={() => navigation.navigate("messenger")}>
-              {/* <GrLinkPrevious
-                size={20}
-                style={{ fontWeight: "700" }}
-                color="#3d3535"
-              /> */}
+            
+                <Ionicons name="arrow-back" size={25} color="grey" />
             </Text>
           </View>
           <View
             style={{
-              width: "95%",
+              width: "90%",
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
@@ -102,9 +100,9 @@ const SendMessager = (props: any) => {
       </View>
 
       <View style={styles.containerInput}>
-        <TextInput style={styles.TextInput} />
+        <TextInput placeholder="Send messager" style={styles.TextInput} />
         <View style={styles.icon}>
-          {/* <IoSend color="rgba(211, 161, 231, 0.85)" size={35} /> */}
+          <Ionicons name="send" size={25} color="grey" />
         </View>
       </View>
     </View>
@@ -138,13 +136,13 @@ const styles = StyleSheet.create({
     shadowColor: COlORS.gray[120],
     borderWidth: 1,
     padding: 10,
-    width: "90%",
+    width: "85%",
   },
   icon: {
     borderColor: COlORS.gray[120],
     shadowColor: COlORS.gray[120],
     borderWidth: 1,
-    width: "10%",
+    width: "15%",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

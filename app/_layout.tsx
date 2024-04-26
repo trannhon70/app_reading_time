@@ -8,7 +8,6 @@ import Login from "@/pages/Login";
 import Home from "@/pages/Home";
 import ToastManager, { Toast } from "toastify-react-native";
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FreeTryal from "@/pages/FreeTryal";
 import Messenger from "@/pages/Messenger";
 import SendMessager from "@/pages/SendMessager";
@@ -20,7 +19,6 @@ export const socket = io("https://backend-chat-latest.onrender.com");
 import { store } from "@/redux/store";
 import { Provider } from "react-redux";
 
-const Stack = createNativeStackNavigator();
 
 function NotificationsScreen({ navigation }: any) {
   return (
@@ -65,11 +63,11 @@ function RootLayoutNav(props: any) {
     //         layout: Login,
     //       },
     //     ]),
-    {
-      id: 0,
-      name: "Login",
-      layout: Login,
-    },
+    // {
+    //   id: 0,
+    //   name: "Login",
+    //   layout: Login,
+    // },
     {
       id: 1,
       name: "Home",

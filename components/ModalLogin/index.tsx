@@ -33,6 +33,7 @@ const ModalLogin = (props: IModal) => {
     setModalVisible(true);
   };
 
+  
   const onPressLogin = async () => {
     if (validator.isEmail(email) === false) {
       return setErrEmail(true);

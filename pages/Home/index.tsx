@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Button,
+  Dimensions,
   Image,
   SafeAreaView,
   ScrollView,
@@ -13,10 +14,12 @@ import { COlORS } from "@/constants/Colors";
 import Header from "@/Layouts/Header";
 import WhyReading from "@/Layouts/WhyReading";
 import ReadingReview from "@/Layouts/ReadingReview";
+import Carousel from "react-native-reanimated-carousel";
+import { Ionicons } from "@expo/vector-icons";
 
 const Styles = StyleSheet.create({
   sliderContainer: {
-    width: "90%",
+    width: "95%",
     height: scalePoint(250),
     backgroundColor: COlORS.white,
     borderBottomEndRadius: scalePoint(80),
@@ -124,6 +127,7 @@ const Styles = StyleSheet.create({
   plus: {
     width: scalePoint(30),
     height: scalePoint(30),
+    marginRight:'1%'
   },
   sliderContainerImg: {
     width: "100%",
@@ -145,32 +149,68 @@ const Styles = StyleSheet.create({
     fontWeight: "700",
   },
 });
+
+const data = [
+  {
+    id: 1,
+    text: "  Cultivating the habit of reading in our children. Video English Reading Lessons, Reading Time",
+    image: "https://www.readingtime.vn/assets/slide_1-BRpENqDw.jpg",
+  },
+  {
+    id: 2,
+    text: "25 minutes with a foreign teacher every day",
+    image: "https://reading-time.co.kr/resources/img/main/vis2.jpg",
+  },
+  {
+    id: 3,
+    text: "Cultivating reading habits in our children",
+    image: "https://reading-time.co.kr/resources/img/main/vis4_210906.jpg",
+  },
+];
 const Home = (props: any) => {
   const { navigation } = props;
   const plus = require("@/assets/images/plus.svg");
+  const width = Dimensions.get("window").width;
   return (
     <>
       <Header navigation={navigation} />
       <SafeAreaView style={{ flex: 1, height: "100%" }}>
         <ScrollView style={{ height: "100%" }}>
           <View style={Styles.container}>
-            <View style={Styles.centerContainer}>
-              <View style={Styles.sliderContainer}>
-                <Image
-                  style={Styles.sliderContainerImg}
-                  source={{
-                    uri: "https://www.readingtime.vn/assets/slide_1-BRpENqDw.jpg",
-                  }}
-                />
-                <View style={Styles.sliderContainerbody}>
-                  <Text style={Styles.sliderContainerText}>
-                    Cultivating the habit of reading in our children. Video
-                    English Reading Lessons, Reading Time
-                  </Text>
-                  <Button color={"#5353ac"} title="Try it now for free" />
-                </View>
-              </View>
+            <View>
+            <Carousel
+              loop
+              width={width}
+              height={width - 100}
+              autoPlay={true}
+              data={data}
+              scrollAnimationDuration={10000}
+              // onSnapToItem={(index) => setCurrent(index)}
+              key={"aac"}
+              renderItem={({ item, index }) => {
+                return (
+                  <View style={Styles.centerContainer}>
+                    <View style={Styles.sliderContainer}>
+                      <Image
+                        style={Styles.sliderContainerImg}
+                        source={{
+                          uri: `${item.image}`,
+                        }}
+                      />
+                      <View style={Styles.sliderContainerbody}>
+                        <Text style={Styles.sliderContainerText}>
+                         {item.text}
+                        </Text>
+                        <Button color={"#5353ac"} title="Try it now for free" />
+                      </View>
+                    </View>
+                  </View>
+                );
+              }}
+            />
             </View>
+            
+
 
             <WhyReading />
             <ReadingReview />
@@ -192,7 +232,8 @@ const Home = (props: any) => {
                 </Text>
               </View>
               <View style={Styles.plus}>
-                <Image style={{ width: 35 }} source={plus} />
+                {/* <Image style={{ width: 35 }} source={plus} /> */}
+                <Ionicons name="add" size={30} color="blue" />
               </View>
               <View style={Styles.stepConatiner}>
                 <Image
@@ -204,7 +245,7 @@ const Home = (props: any) => {
                 <Text style={Styles.textStep}> 25 minutes</Text>
               </View>
               <View style={Styles.plus}>
-                <Image style={{ width: 35 }} source={plus} />
+              <Ionicons name="add" size={30} color="blue" />
               </View>
               <View style={Styles.stepConatiner}>
                 <Image

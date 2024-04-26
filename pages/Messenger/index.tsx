@@ -6,33 +6,27 @@ import {
   Text,
   TouchableOpacity,
   View,
-  AsyncStorage
 } from "react-native";
-// import { FaUserAlt } from "react-icons/fa";
-// import { GrLinkPrevious } from "react-icons/gr";
 import { ScrollView } from "react-native";
 import { useEffect, useState } from "react";
-import { LocalStore } from "@/hooks/useLocalStore";
 import { useDispatch } from "react-redux";
 import { setIdChat } from "@/features/messager";
 import { Ionicons } from "@expo/vector-icons";
-// import { SyncStorage } from "sync-storage";
+import SyncStorage from "sync-storage";
 
 const Messenger = (props: any) => {
   const logo = require("@/assets/images/header-logo.png");
-  // const user = LocalStore.getUserLocalStore();
-  const user = AsyncStorage.get("userInfor");
+  const storage = SyncStorage.get('infoUser')
+  const user = JSON?.parse(storage)
   const [userChat, setUserChat] = useState<any>([]);
   const dispacth = useDispatch();
-
-  // console.log(user, "user");
+  console.log(user, "user");
 
   const { navigation } = props;
   const message = userChat?.[0]?.latestMessage;
   const truncatedMessage =
     message?.length > 30 ? message?.slice(0, 30) + "..." : message;
 
-  console.log(truncatedMessage, "truncatedMessage");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +38,7 @@ const Messenger = (props: any) => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        // console.log(data, "data");
+        console.log(data, "data");
 
         setUserChat(data.data);
       } catch (error) {
@@ -78,12 +72,8 @@ const Messenger = (props: any) => {
         >
           <View style={{ width: "10%" }}>
             <Text onPress={() => navigation.navigate("Home")}>
-              {/* <GrLinkPrevious
-                size={20}
-                style={{ fontWeight: "700" }}
-                color="#3d3535"
-              /> */}
-              <Ionicons name="arrow-back" size={20} color="grey" />
+              
+              <Ionicons name="arrow-back" size={25} color="grey" />
             </Text>
           </View>
           <View
@@ -107,7 +97,7 @@ const Messenger = (props: any) => {
             <View style={styles.card}>
               <View style={styles.cardLeft}>
                 <Text>
-                  <Ionicons name="person" size={32} color="grey" />
+                  <Ionicons name="person" size={27} color="grey" />
                 </Text>
               </View>
               <View style={styles.cardRight}>

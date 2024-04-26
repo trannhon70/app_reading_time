@@ -5,6 +5,7 @@ import { StyleSheet } from "react-native";
 // import { FaCirclePlay } from "react-icons/fa6";
 import Carousel from "react-native-reanimated-carousel";
 import { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 
 const Styles = StyleSheet.create({
   heading: {
@@ -43,8 +44,8 @@ const Styles = StyleSheet.create({
   icon: {
     position: "absolute",
 
-    top: "36%",
-    left: "44%",
+    top: "35%",
+    left: "40%",
   },
 });
 
@@ -69,25 +70,22 @@ const ReadingReview = () => {
   const width = Dimensions.get("window").width;
   const [current, setCurrent] = useState<number>(0);
 
-  //   console.log(current, "current");
 
   return (
     <View style={{ paddingHorizontal: 20 }}>
       <View style={Styles.heading}>
         <Text style={Styles.headingText}>Reading Time Experience Review</Text>
       </View>
-      <View style={{ flex: 1, paddingRight: 30, height: 600 }}>
+      <View style={{ flex: 1, paddingRight: 30 }}>
         <Carousel
           loop
-          //   vertical={true}
-          width={width - 50}
-          height={width - 200}
+          width={width - 40}
+          height={width-50}
           autoPlay={true}
           data={data}
           scrollAnimationDuration={1000}
           onSnapToItem={(index) => setCurrent(index)}
           key={"aa"}
-          mode="parallax"
           renderItem={({ item, index }) => {
             return (
               <View style={Styles.why} key={index}>
@@ -100,6 +98,7 @@ const ReadingReview = () => {
                   />
                   <Text style={Styles.icon}>
                     {/* <FaCirclePlay size={50} color="#5353ac " /> */}
+                    <Ionicons name="play-circle" size={45} color="#5353ac" />
                   </Text>
                 </View>
                 <View>

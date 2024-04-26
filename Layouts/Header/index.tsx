@@ -1,14 +1,18 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 
 import { CommonActions } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import SyncStorage from "sync-storage";
 
 const Header = (props: any) => {
   const { navigation } = props;
   const logo = require("@/assets/images/header-logo.png");
-
+  const width = Dimensions.get("window").width;
+  
   const onClickLogout = () => {
-    localStorage.clear();
+    SyncStorage.remove('infoUser')
+    SyncStorage.remove('refreshToken')
+    SyncStorage.remove('token')
 
     navigation.dispatch(
       CommonActions.reset({
@@ -18,7 +22,7 @@ const Header = (props: any) => {
     );
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, ]}>
       <View
         style={{
           flexDirection: "row",

@@ -1,6 +1,5 @@
 import { COlORS } from "@/constants/Colors";
-import dayjs from "dayjs";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import DateTimePicker from "react-native-ui-datepicker";
 
@@ -50,23 +49,15 @@ interface ITextFeld {
   value?: string;
   placeholder?: string;
   onchange?: any;
+  error?: boolean;
+  text?: string;
+  setDatePicker?: any;
+  datePicker?: any;
 }
 
 const DatePickerComponent = (props: ITextFeld) => {
-  const { label } = props;
-  const dateDefault = new Date();
-  const [date, setDate] = useState(dayjs());
+  const { label, onchange, error, text, datePicker } = props;
 
-  console.log(date, "date");
-
-  const hanlChangeDate = (e: any) => {
-    console.log(e, "e");
-
-    console.log(dayjs(e), "dayjs(e)");
-
-    // setDate(e);
-    // setDate(dayjs(e));
-  };
   return (
     <View style={styles.container}>
       <View style={styles.body}>
@@ -77,12 +68,13 @@ const DatePickerComponent = (props: ITextFeld) => {
           <View style={{ width: "100%" }}>
             <DateTimePicker
               mode="single"
-              date={date}
-              onChange={(e) => hanlChangeDate(e)}
+              date={datePicker}
+              onChange={(e) => onchange(e)}
               timePicker
             />
           </View>
         </View>
+        <View>{error && <Text style={{ color: "red" }}>{text}</Text>}</View>
       </View>
     </View>
   );

@@ -52,11 +52,11 @@ function RootLayoutNav(props: any) {
     //         layout: Login,
     //       },
     //     ]),
-    {
-      id: 0,
-      name: "Login",
-      layout: Login,
-    },
+    // {
+    //   id: 0,
+    //   name: "Login",
+    //   layout: Login,
+    // },
     {
       id: 1,
       name: "Home",

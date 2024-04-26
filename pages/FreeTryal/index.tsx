@@ -24,6 +24,7 @@ import validator from "validator";
 import FreeTryalApi from "@/api/freeTryal";
 import { Toast } from "toastify-react-native";
 import DatePickerComponent from "@/components/DatePickerComponent";
+import dayjs from "dayjs";
 // import DatePickerComponent from "@/components/DatePickerComponent";
 const styles = StyleSheet.create({
   tryFreeContainer: {
@@ -75,7 +76,8 @@ const FreeTryal = (props: any) => {
   const icon = require("@/assets/images/book.svg");
   const logo = require("@/assets/images/header-logo.png");
   const [country, setCountry] = useState<any>([]);
-  const [check, setCheck] = useState<boolean>(false);
+  const [datePicker, setDatePicker] = useState<any>(dayjs());
+  const [check, setCheck] = useState<boolean>(true);
   const [check1, setCheck1] = useState<boolean>(false);
   const [checkCount, setCheckCount] = useState<number>(0);
   const [errConfirm, setErrConFirm] = useState<boolean>(false);
@@ -101,7 +103,7 @@ const FreeTryal = (props: any) => {
     startDate: "",
     phone: "",
     age: "",
-    bookType: "",
+    bookType: "RAZKID",
     hopeDay: "",
     timeTableId: "",
   });
@@ -206,9 +208,11 @@ const FreeTryal = (props: any) => {
   }, [check, check1]);
 
   const onchangeStartDate = (e: any) => {
+    setDatePicker(dayjs(e.date));
+    const dateOnly = e.date.split(" ")[0];
     setForm({
       ...form,
-      startDate: e.target.value,
+      startDate: dateOnly,
     });
     setFormErr({
       ...formErr,
@@ -292,6 +296,34 @@ const FreeTryal = (props: any) => {
       FreeTryalApi.createFreeTryal(form)
         .then((res: any) => {
           Toast.success(`${res.message}`, "");
+          setForm({
+            ...form,
+            email: "",
+            password: "",
+            confirmPassword: "",
+            userName: "",
+            countryName: "",
+            startDate: datePicker,
+            phone: "",
+            age: "",
+            bookType: "RAZKID",
+            hopeDay: "",
+            timeTableId: "",
+          });
+          setFormErr({
+            ...formErr,
+            email: false,
+            password: false,
+            confirmPassword: false,
+            userName: false,
+            countryName: false,
+            startDate: false,
+            phone: false,
+            age: false,
+            bookType: false,
+            hopeDay: false,
+            timeTableId: false,
+          });
         })
         .catch((err: any) => {
           Toast.error(`${err?.response?.data?.message}`, "");
@@ -345,6 +377,7 @@ const FreeTryal = (props: any) => {
               onchange={onchangeEmail}
               error={formErr.email}
               text="Email is not empty!"
+              value={form.email}
             />
             <TextFeldComponent
               label="Password"
@@ -356,6 +389,7 @@ const FreeTryal = (props: any) => {
               iconNot={
                 <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
               }
+              value={form.password}
             />
             <TextFeldComponent
               label="Confirm Password"
@@ -368,6 +402,7 @@ const FreeTryal = (props: any) => {
               iconNot={
                 <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
               }
+              value={form.confirmPassword}
             />
             <TextFeldComponent
               label="Nickname"
@@ -378,6 +413,7 @@ const FreeTryal = (props: any) => {
               iconNot={
                 <FaUser size={30} color="#5a5a61" style={{ marginTop: 5 }} />
               }
+              value={form.userName}
             />
             <TextFeldComponent
               icon={icon}
@@ -386,6 +422,7 @@ const FreeTryal = (props: any) => {
               onchange={onchangeAge}
               error={formErr.age}
               text="Age is not empty!"
+              value={form.age}
             />
             <TextFeldComponent
               icon={icon}
@@ -397,6 +434,7 @@ const FreeTryal = (props: any) => {
               iconNot={
                 <FaPhone size={30} color="#5a5a61" style={{ marginTop: 5 }} />
               }
+              value={form.phone}
             />
 
             <View>
@@ -416,8 +454,15 @@ const FreeTryal = (props: any) => {
                 disabled={checkCount >= 1 && !check1}
               />
             </View>
-            <DatePickerComponent label="Start Date" />
-            <TextFeldComponent
+            <DatePickerComponent
+              label="Start Date"
+              onchange={onchangeStartDate}
+              error={formErr.startDate}
+              text="Start date is not empty!"
+              setDatePicker={setDatePicker}
+              datePicker={datePicker}
+            />
+            {/* <TextFeldComponent
               icon={icon}
               label="Start Date"
               placeholder="dd/mm/yyy"
@@ -431,7 +476,7 @@ const FreeTryal = (props: any) => {
                   style={{ marginTop: 5 }}
                 />
               }
-            />
+            /> */}
             <CheckBoxComponent
               label="Hope day "
               onchange={onchangeHopeDay}

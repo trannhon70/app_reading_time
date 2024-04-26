@@ -1,22 +1,26 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SCREEN_WIDTH, scalePoint } from "@/utils/common";
-// import { Button } from '~components/atoms'
-// import { ArticleList, ProductList, Slider } from '~components/organisms'
 import { COlORS } from "@/constants/Colors";
 import Header from "@/Layouts/Header";
-// import LayoutWithHeading from "@/layouts/LayoutWithHeading";
-// import { Plus } from '@/images/index'
-// import { AppScreenNavigationProp } from '~routes/index'
+import WhyReading from "@/Layouts/WhyReading";
+import ReadingReview from "@/Layouts/ReadingReview";
 
 const Styles = StyleSheet.create({
   sliderContainer: {
     width: "90%",
     height: scalePoint(250),
     backgroundColor: COlORS.white,
-    borderBottomEndRadius: scalePoint(100),
-    borderTopLeftRadius: scalePoint(100),
+    borderBottomEndRadius: scalePoint(80),
+    borderTopLeftRadius: scalePoint(80),
     overflow: "hidden",
   },
   centerContainer: {
@@ -24,6 +28,7 @@ const Styles = StyleSheet.create({
   },
   container: {
     backgroundColor: "rgb(233 219 235)",
+    paddingTop: 10,
   },
   sliderImageItem: {
     height: "100%",
@@ -70,6 +75,10 @@ const Styles = StyleSheet.create({
     fontWeight: "700",
     color: COlORS.black,
     marginTop: scalePoint(20),
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
   },
   textBreakContainer: {
     justifyContent: "center",
@@ -116,63 +125,128 @@ const Styles = StyleSheet.create({
     width: scalePoint(30),
     height: scalePoint(30),
   },
+  sliderContainerImg: {
+    width: "100%",
+    height: "100%",
+    position: "relative",
+  },
+  sliderContainerbody: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: "10%",
+  },
+  sliderContainerText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "700",
+  },
 });
 const Home = (props: any) => {
   const { navigation } = props;
+  const plus = require("@/assets/images/plus.svg");
   return (
     <>
-      <View style={Styles.container}>
-        <Header navigation={navigation} />
-        <View style={Styles.centerContainer}>
-          <View style={Styles.sliderContainer}>
-            {/* <Slider data={dataSliders} /> */}
+      <Header navigation={navigation} />
+      <SafeAreaView style={{ flex: 1, height: "100%" }}>
+        <ScrollView style={{ height: "100%" }}>
+          <View style={Styles.container}>
+            <View style={Styles.centerContainer}>
+              <View style={Styles.sliderContainer}>
+                <Image
+                  style={Styles.sliderContainerImg}
+                  source={{
+                    uri: "https://www.readingtime.vn/assets/slide_1-BRpENqDw.jpg",
+                  }}
+                />
+                <View style={Styles.sliderContainerbody}>
+                  <Text style={Styles.sliderContainerText}>
+                    Cultivating the habit of reading in our children. Video
+                    English Reading Lessons, Reading Time
+                  </Text>
+                  <Button color={"#5353ac"} title="Try it now for free" />
+                </View>
+              </View>
+            </View>
+
+            <WhyReading />
+            <ReadingReview />
+
+            <View style={Styles.guideContainer}>
+              <Text style={Styles.heading}>
+                Create an English reading habit!
+              </Text>
+              <View style={Styles.stepConatiner}>
+                <Image
+                  source={{
+                    uri: "https://reading-time.co.kr/resources/img/main/sec4_1.jpg",
+                  }}
+                  style={Styles.stepImage}
+                />
+                <Text style={Styles.textStep}>
+                  {" "}
+                  1:1 foreign teacher coaching
+                </Text>
+              </View>
+              <View style={Styles.plus}>
+                <Image style={{ width: 35 }} source={plus} />
+              </View>
+              <View style={Styles.stepConatiner}>
+                <Image
+                  source={{
+                    uri: "https://reading-time.co.kr/resources/img/main/sec4_2.jpg",
+                  }}
+                  style={Styles.stepImage}
+                />
+                <Text style={Styles.textStep}> 25 minutes</Text>
+              </View>
+              <View style={Styles.plus}>
+                <Image style={{ width: 35 }} source={plus} />
+              </View>
+              <View style={Styles.stepConatiner}>
+                <Image
+                  source={{
+                    uri: "https://reading-time.co.kr/resources/img/main/sec4_3.jpg",
+                  }}
+                  style={Styles.stepImage}
+                />
+                <Text style={Styles.textStep}> 1:1 with foreign teacher</Text>
+              </View>
+            </View>
+            <View
+              style={{
+                width: "100%",
+                height: "auto",
+                flex: 1,
+                alignItems: "center",
+                marginTop: 20,
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  backgroundColor: "#f4a5c7",
+                  color: "white",
+                  width: 280,
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddingHorizontal: 5,
+                  paddingVertical: 15,
+                  fontSize: 16,
+                  fontWeight: "600",
+                  borderRadius: 6,
+                }}
+              >
+                Apply now for a 3-day free trial
+              </Text>
+            </View>
           </View>
-        </View>
-
-        {/* ArticleList */}
-        <Text style={Styles.heading}>
-          Why is reading English books important!
-        </Text>
-        {/* <ArticleList /> */}
-        {/* ArticleList end */}
-
-        {/* ArticleList isVideo */}
-        <Text style={Styles.heading}>Reading time review from Korean</Text>
-        {/* <ArticleList isVideo /> */}
-        {/* ArticleList isVideo end */}
-
-        <View style={Styles.textBreakContainer}>
-          <Text style={Styles.heading}>Reading time review from Korean</Text>
-          <Text style={Styles.textDesc}>
-            25 minutes every day, with the guidance of the foreign teacher, you
-            will develop the habit of reading English and naturally improve your
-            English language skills
-          </Text>
-        </View>
-
-        {/* ProductList */}
-        <Text style={Styles.heading}>Reading time products</Text>
-        {/* <ProductList /> */}
-        {/* ProductList end */}
-
-        <View style={Styles.guideContainer}>
-          <Text style={Styles.heading}>Reading time review from Korean</Text>
-          <View style={Styles.stepConatiner}>
-            {/* <Image source={slider} style={Styles.stepImage} /> */}
-            <Text style={Styles.textStep}> 1:1 with foreign teacher</Text>
-          </View>
-          <View style={Styles.plus}>{/* <Plus /> */}</View>
-          <View style={Styles.stepConatiner}>
-            {/* <Image source={slider} style={Styles.stepImage} /> */}
-            <Text style={Styles.textStep}> 25 minutes</Text>
-          </View>
-          <View style={Styles.plus}>{/* <Plus /> */}</View>
-          <View style={Styles.stepConatiner}>
-            {/* <Image source={slider} style={Styles.stepImage} /> */}
-            <Text style={Styles.textStep}> 1:1 with foreign teacher</Text>
-          </View>
-        </View>
-      </View>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 };

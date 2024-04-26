@@ -54,15 +54,15 @@ export default function RootLayout() {
 function RootLayoutNav(props: any) {
   const { isLogin } = props;
   const Menu = [
-    // ...(isLogin
-    //   ? []
-    //   : [
-    //       {
-    //         id: 3,
-    //         name: "Login",
-    //         layout: Login,
-    //       },
-    //     ]),
+    ...(isLogin
+      ? []
+      : [
+          {
+            id: 3,
+            name: "Login",
+            layout: Login,
+          },
+        ]),
     // {
     //   id: 0,
     //   name: "Login",

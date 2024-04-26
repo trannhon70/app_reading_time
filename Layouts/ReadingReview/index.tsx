@@ -2,7 +2,7 @@ import { COlORS } from "@/constants/Colors";
 import { scalePoint } from "@/utils/common";
 import { Dimensions, Image, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
-import { FaCirclePlay } from "react-icons/fa6";
+// import { FaCirclePlay } from "react-icons/fa6";
 import Carousel from "react-native-reanimated-carousel";
 import { useState } from "react";
 
@@ -99,7 +99,7 @@ const ReadingReview = () => {
                     }}
                   />
                   <Text style={Styles.icon}>
-                    <FaCirclePlay size={50} color="#5353ac " />
+                    {/* <FaCirclePlay size={50} color="#5353ac " /> */}
                   </Text>
                 </View>
                 <View>

@@ -1,9 +1,6 @@
-import { GrLinkPrevious } from "react-icons/gr";
-import { IoMailSharp } from "react-icons/io5";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { IoNotifications } from "react-icons/io5";
-import { FaMessage } from "react-icons/fa6";
-import { TbLogout2 } from "react-icons/tb";
+// import { FaMessage } from "react-icons/fa6";
+// import { TbLogout2 } from "react-icons/tb";
 import { CommonActions } from "@react-navigation/native";
 
 const Header = (props: any) => {
@@ -32,11 +29,11 @@ const Header = (props: any) => {
       >
         <View>
           <Text onPress={() => navigation.navigate("messenger")}>
-            <FaMessage
+            {/* <FaMessage
               size={30}
               color="rgb(228 142 233)"
               style={{ marginTop: 5 }}
-            />
+            /> */}
           </Text>
         </View>
 
@@ -54,11 +51,11 @@ const Header = (props: any) => {
         </View>
         <View>
           <Text onPress={onClickLogout}>
-            <TbLogout2
+            {/* <TbLogout2
               size={30}
               color="rgb(228 142 233)"
               style={{ marginTop: 5 }}
-            />
+            /> */}
           </Text>
         </View>
       </View>

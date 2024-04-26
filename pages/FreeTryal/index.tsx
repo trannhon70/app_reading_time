@@ -13,13 +13,13 @@ import { Button } from "@/components/atoms";
 import SelectComponent from "@/components/SelectComponent";
 import CheckBoxComponent from "@/components/CheckBoxComponent";
 import { TimeDesired } from "@/utils";
-import { GrLinkPrevious } from "react-icons/gr";
+// import { GrLinkPrevious } from "react-icons/gr";
 import CountryApi from "@/api/country";
-import { IoMailSharp } from "react-icons/io5";
-import { FaLock } from "react-icons/fa6";
-import { FaUser } from "react-icons/fa";
-import { FaPhone } from "react-icons/fa6";
-import { BsCalendar2DateFill } from "react-icons/bs";
+// import { IoMailSharp } from "react-icons/io5";
+// import { FaLock } from "react-icons/fa6";
+// import { FaUser } from "react-icons/fa";
+// import { FaPhone } from "react-icons/fa6";
+// import { BsCalendar2DateFill } from "react-icons/bs";
 import validator from "validator";
 import FreeTryalApi from "@/api/freeTryal";
 import { Toast } from "toastify-react-native";
@@ -346,7 +346,7 @@ const FreeTryal = (props: any) => {
             >
               <View style={{ width: "5%" }}>
                 <Text onPress={() => navigation.goBack()}>
-                  <GrLinkPrevious size={20} color="#3d3535" />
+                  {/* <GrLinkPrevious size={20} color="#3d3535" /> */}
                 </Text>
               </View>
               <View
@@ -365,13 +365,13 @@ const FreeTryal = (props: any) => {
             </View>
             <TextFeldComponent
               icon={icon}
-              iconNot={
-                <IoMailSharp
-                  size={30}
-                  color="#5a5a61"
-                  style={{ marginTop: 5 }}
-                />
-              }
+              // iconNot={
+              //   <IoMailSharp
+              //     size={30}
+              //     color="#5a5a61"
+              //     style={{ marginTop: 5 }}
+              //   />
+              // }
               label="Email"
               // placeholder="Nhập email"
               onchange={onchangeEmail}
@@ -386,9 +386,9 @@ const FreeTryal = (props: any) => {
               onchange={onchangePassword}
               error={formErr.password}
               text="Password is not empty!"
-              iconNot={
-                <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
-              }
+              // iconNot={
+              //   <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
+              // }
               value={form.password}
             />
             <TextFeldComponent
@@ -399,9 +399,9 @@ const FreeTryal = (props: any) => {
               error={formErr.confirmPassword}
               text="Confirm password is not empty!"
               errConfirm={errConfirm}
-              iconNot={
-                <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
-              }
+              // iconNot={
+              //   <FaLock size={30} color="#5a5a61" style={{ marginTop: 5 }} />
+              // }
               value={form.confirmPassword}
             />
             <TextFeldComponent
@@ -410,9 +410,9 @@ const FreeTryal = (props: any) => {
               onchange={onchangeNickName}
               error={formErr.userName}
               text="Nickname is not empty!"
-              iconNot={
-                <FaUser size={30} color="#5a5a61" style={{ marginTop: 5 }} />
-              }
+              // iconNot={
+              //   <FaUser size={30} color="#5a5a61" style={{ marginTop: 5 }} />
+              // }
               value={form.userName}
             />
             <TextFeldComponent
@@ -431,9 +431,9 @@ const FreeTryal = (props: any) => {
               onchange={onchangePhone}
               error={formErr.phone}
               text="Phone is not empty!"
-              iconNot={
-                <FaPhone size={30} color="#5a5a61" style={{ marginTop: 5 }} />
-              }
+              // iconNot={
+              //   <FaPhone size={30} color="#5a5a61" style={{ marginTop: 5 }} />
+              // }
               value={form.phone}
             />
 

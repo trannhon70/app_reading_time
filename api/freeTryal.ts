@@ -1,4 +1,4 @@
-import instance from "./config";
+  import instance from "./config";
 
 const createFreeTryal = async (body: any) => {
   const response = await instance.post("/users/create-study-trial", body);

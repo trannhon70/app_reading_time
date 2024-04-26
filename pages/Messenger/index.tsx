@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { FaUserAlt } from "react-icons/fa";
-import { GrLinkPrevious } from "react-icons/gr";
+// import { FaUserAlt } from "react-icons/fa";
+// import { GrLinkPrevious } from "react-icons/gr";
 import { ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { LocalStore } from "@/hooks/useLocalStore";
@@ -73,11 +73,12 @@ const Messenger = (props: any) => {
         >
           <View style={{ width: "5%" }}>
             <Text onPress={() => navigation.navigate("Home")}>
-              <GrLinkPrevious
+              {/* <GrLinkPrevious
                 size={20}
                 style={{ fontWeight: "700" }}
                 color="#3d3535"
-              />
+              /> */}
+              a
             </Text>
           </View>
           <View

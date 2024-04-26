@@ -1,8 +1,8 @@
 import { COlORS } from "@/constants/Colors";
-import { GrLinkPrevious } from "react-icons/gr";
+// import { GrLinkPrevious } from "react-icons/gr";
 import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native";
-import { IoSend } from "react-icons/io5";
+// import { IoSend } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect } from "react";
@@ -46,11 +46,11 @@ const SendMessager = (props: any) => {
         >
           <View style={{ width: "5%" }}>
             <Text onPress={() => navigation.navigate("messenger")}>
-              <GrLinkPrevious
+              {/* <GrLinkPrevious
                 size={20}
                 style={{ fontWeight: "700" }}
                 color="#3d3535"
-              />
+              /> */}
             </Text>
           </View>
           <View
@@ -104,7 +104,7 @@ const SendMessager = (props: any) => {
       <View style={styles.containerInput}>
         <TextInput style={styles.TextInput} />
         <View style={styles.icon}>
-          <IoSend color="rgba(211, 161, 231, 0.85)" size={35} />
+          {/* <IoSend color="rgba(211, 161, 231, 0.85)" size={35} /> */}
         </View>
       </View>
     </View>

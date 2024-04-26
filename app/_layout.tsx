@@ -1,5 +1,5 @@
 import * as React from "react";
-import 'react-native-svg'
+import "react-native-svg";
 import { Button, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";

@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-// import { FaMessage } from "react-icons/fa6";
-// import { TbLogout2 } from "react-icons/tb";
+
 import { CommonActions } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 const Header = (props: any) => {
   const { navigation } = props;
@@ -9,7 +9,7 @@ const Header = (props: any) => {
 
   const onClickLogout = () => {
     localStorage.clear();
-    
+
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
@@ -29,11 +29,7 @@ const Header = (props: any) => {
       >
         <View>
           <Text onPress={() => navigation.navigate("messenger")}>
-            {/* <FaMessage
-              size={30}
-              color="rgb(228 142 233)"
-              style={{ marginTop: 5 }}
-            /> */}
+            <Ionicons name="mail" size={32} color="grey" />
           </Text>
         </View>
 
@@ -51,11 +47,8 @@ const Header = (props: any) => {
         </View>
         <View>
           <Text onPress={onClickLogout}>
-            {/* <TbLogout2
-              size={30}
-              color="rgb(228 142 233)"
-              style={{ marginTop: 5 }}
-            /> */}
+            
+            <Ionicons name="log-out" size={32} color="grey" />
           </Text>
         </View>
       </View>

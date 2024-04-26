@@ -1,22 +1,24 @@
+import SyncStorage from "sync-storage";
+
 export const LocalStore = {
   getUserLocalStore: () => {
     if (typeof window !== "undefined" && window.localStorage) {
-      const userSession = window.localStorage.getItem("user");
+      const userSession = SyncStorage.get("infoUser");
       return userSession ? JSON.parse(userSession) : null;
     }
     return null;
   },
   gettokenLocalStore: () => {
     if (typeof window !== "undefined" && window.localStorage) {
-      const userSession = window.localStorage.getItem("token");
+      const userSession = SyncStorage.get("token");
       return userSession ? JSON.parse(userSession) : null;
     }
     return null;
   },
   setUserLocalStore: (data: any) => {
-    localStorage?.setItem("user", JSON.stringify(data));
+    SyncStorage?.set("infoUser", JSON.stringify(data));
   },
   setTokenLocalStore: (data: any) => {
-    localStorage?.setItem("token", JSON.stringify(data));
+    SyncStorage?.set("token", JSON.stringify(data));
   },
 };

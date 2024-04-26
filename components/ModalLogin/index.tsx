@@ -15,6 +15,7 @@ import { COlORS } from "@/constants/Colors";
 import UserApi from "@/api/users";
 import validator from "validator";
 import { Toast } from "toastify-react-native";
+import SyncStorage from "sync-storage";
 
 export interface IModal {
   children: ReactNode;
@@ -48,12 +49,9 @@ const ModalLogin = (props: IModal) => {
       .then((res) => {
         console.log(res, "res");
         Toast.success(`${res?.message}`, "");
-        localStorage.setItem("infoUser", JSON.stringify(res.data.infoUser));
-        localStorage.setItem(
-          "refreshToken",
-          JSON.stringify(res.data.refreshToken)
-        );
-        localStorage.setItem("token", JSON.stringify(res.data.token));
+        SyncStorage.set("infoUser", JSON.stringify(res.data.infoUser));
+        SyncStorage.set("refreshToken", JSON.stringify(res.data.refreshToken));
+        SyncStorage.set("token", JSON.stringify(res.data.token));
         setModalVisible(false);
         navigation.navigate("Home");
       })

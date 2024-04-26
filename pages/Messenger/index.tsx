@@ -10,17 +10,56 @@ import {
 import { FaUserAlt } from "react-icons/fa";
 import { GrLinkPrevious } from "react-icons/gr";
 import { ScrollView } from "react-native";
+import { useEffect, useState } from "react";
+import { LocalStore } from "@/hooks/useLocalStore";
+import { useDispatch } from "react-redux";
+import { setIdChat } from "@/features/messager";
 
 const Messenger = (props: any) => {
   const logo = require("@/assets/images/header-logo.png");
+  const user = LocalStore.getUserLocalStore();
+  const [userChat, setUserChat] = useState<any>([]);
+  const dispacth = useDispatch();
+
+  console.log(userChat, "userChat");
+
   const { navigation } = props;
-  const message = "Chao bajn sadsaddddddddddddddddddddddddddddddddddd";
+  const message = userChat?.[0]?.latestMessage;
   const truncatedMessage =
-    message.length > 30 ? message.slice(0, 30) + "..." : message;
+    message?.length > 30 ? message?.slice(0, 30) + "..." : message;
+
+  console.log(truncatedMessage, "truncatedMessage");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://backend-chat-latest.onrender.com/api/v1/chats/list/first-messages?userId=${user?._id}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setUserChat(data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const onPressChat = () => {
+    const payload = {
+      sendTo: userChat?.[0]?.sendTo._id,
+      fromTo: userChat?.[0]?.fromTo._id,
+      nameFromto: userChat?.[0]?.sendTo.email,
+
+    };
+    dispacth(setIdChat(payload));
     navigation.navigate("SendMessager");
   };
+
   return (
     <View style={styles.container}>
       <View style={{ paddingHorizontal: "2%" }}>
@@ -65,10 +104,12 @@ const Messenger = (props: any) => {
               </View>
               <View style={styles.cardRight}>
                 <View>
-                  <Text style={styles.name}>Nguyễn Van A</Text>
+                  <Text style={styles.name}>{userChat?.[0]?.sendTo.email}</Text>
                 </View>
                 <View>
-                  <Text style={styles.chat}>{truncatedMessage}</Text>
+                  <Text style={styles.chat}>
+                    {truncatedMessage ? truncatedMessage : "..."}
+                  </Text>
                 </View>
               </View>
             </View>

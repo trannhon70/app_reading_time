@@ -3,8 +3,35 @@ import { GrLinkPrevious } from "react-icons/gr";
 import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { IoSend } from "react-icons/io5";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { useEffect } from "react";
 
 const SendMessager = (props: any) => {
+  const { fromTo, sendTo, nameFromto } = useSelector(
+    (state: RootState) => state.messager
+  );
+  // console.log(idChat, "idChat");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://backend-chat-latest.onrender.com/api/v1/chats/convesation/list-messages?sendTo=${sendTo}&fromTo=${fromTo}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        console.log(data, "data");
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const { navigation } = props;
   return (
     <View style={styles.container}>
@@ -37,7 +64,7 @@ const SendMessager = (props: any) => {
             <Text
               style={{ fontSize: 16, fontWeight: "700", marginRight: "6%" }}
             >
-              Nguyễn Văn A
+              {nameFromto}
             </Text>
           </View>
         </View>

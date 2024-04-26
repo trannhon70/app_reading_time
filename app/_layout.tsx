@@ -13,6 +13,12 @@ import Messenger from "@/pages/Messenger";
 import SendMessager from "@/pages/SendMessager";
 import { LocalStore } from "@/hooks/useLocalStore";
 
+import { io } from "socket.io-client";
+
+export const socket = io("https://backend-chat-latest.onrender.com");
+import { store } from "@/redux/store";
+import { Provider } from "react-redux";
+
 const Stack = createNativeStackNavigator();
 
 function NotificationsScreen({ navigation }: any) {
@@ -30,13 +36,19 @@ function NotificationsScreen({ navigation }: any) {
 const Drawer = createDrawerNavigator();
 
 export default function RootLayout() {
+  socket.on("sendmess", (data) => {
+    console.log("Nhận thông điệp từ máy chủ:", data);
+    // Xử lý dữ liệu nhận được ở đây
+  });
   const isLogin = LocalStore.gettokenLocalStore();
 
+  console.log(isLogin, "isLogin");
+
   return (
-    <React.Fragment>
+    <Provider store={store}>
       <RootLayoutNav isLogin={isLogin} />
       <ToastManager />
-    </React.Fragment>
+    </Provider>
   );
 }
 
@@ -52,11 +64,11 @@ function RootLayoutNav(props: any) {
     //         layout: Login,
     //       },
     //     ]),
-    // {
-    //   id: 0,
-    //   name: "Login",
-    //   layout: Login,
-    // },
+    {
+      id: 0,
+      name: "Login",
+      layout: Login,
+    },
     {
       id: 1,
       name: "Home",
